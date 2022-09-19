@@ -70,6 +70,19 @@ stored as orc ;
 
 ### a. Calculatye total sales per year.
 ->  select YEAR_ID, sum(SALES) as total_sales from sales_order_data_orc group by YEAR_ID;
+![Q1](https://user-images.githubusercontent.com/113916872/191071559-77a3d267-3b8e-490a-89da-8955afd84dbb.png)
+
+
+### c. b. Find a product for which maximum orders were placed.
+-> select  PRODUCTLINE as maximum_ordered_product,
+        sum(QUANTITYORDERED) as total_quantity  
+       from sales_order_orc 
+       group by PRODUCTLINE  
+       order by total_quantity desc 
+       limit 1;
+
+
+
 
 
 
