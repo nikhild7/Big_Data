@@ -1,10 +1,14 @@
 # Hive Assignment No. 1
 ## Steps Performed :
 ### Download vechile sales data -> https://github.com/shashank-mishra219/Hive-Class/blob/main/sales_order_data.csv
+
 -> Data has been downloaded in csv format in Local system and copied to the local system of virtual box with the help of filzilla.
+
 ### Store raw data into hdfs location.
+
 -> hadoop fs -ls /tmp/hive_data_class_2/
 ### Create a internal hive table "sales_order_data_csv" which will store csv data sales_order_data_csv in hive terminal.
+
 -> create table sales_order_data_csv
 (
 ORDERNUMBER int,
@@ -34,9 +38,11 @@ fields terminated by ','
 tblproperties("skip.header.line.count"="1");
 
 ### Load data from hdfs path into "sales_order_data_csv".
+
 load data inpath '/tmp/hive_data_class_2/sales_order_data.csv' into table sales_order_data_csv;
 
 ### Create an internal hive table which will store data in ORC format "sales_order_data_orc".
+
 create table sales_order_data_orc
 (
 ORDERNUMBER int,
@@ -64,12 +70,15 @@ DEALSIZE string
 stored as orc ;
 
 ### Load data from "sales_order_data_csv" into "sales_order_data_orc".
+
 ->  from sales_order_data_csv insert overwrite table sales_order_data_orc select *;
 
 ## Perform below menioned queries on "sales_order_orc" table :
 
 ### a. Calculatye total sales per year.
+
 ->  select YEAR_ID, sum(SALES) as total_sales from sales_order_data_orc group by YEAR_ID;
+
 ![Q1](https://user-images.githubusercontent.com/113916872/191071559-77a3d267-3b8e-490a-89da-8955afd84dbb.png)
 
 
@@ -83,20 +92,28 @@ stored as orc ;
        ![Q2](https://user-images.githubusercontent.com/113916872/191072388-51c04bc0-850c-406b-ac7c-a7b2e110c594.png)
     
 ### c. Calculate the total sales for each quarter.
+
 -> select QTR_ID, sum(sales) as total_sales from sales_order_data_orc group by QTR_ID;
+
 ![Q3](https://user-images.githubusercontent.com/113916872/191079840-2e15f286-e8eb-4ed4-864c-73f2e193b0b6.png)
 
 ### d. In which quarter sales was minimum.
+
 -> select QTR_ID, sum(sales) as total_sales from sales_order_data_orc group by QTR_ID order by total_sales limit 1;
+
 ![Q4](https://user-images.githubusercontent.com/113916872/191079997-59b63476-133f-43b2-b22f-d941aae8a5f3.png)
 
 ### e. In which country sales was maximum and in which country sales was minimum.
+
 -> select COUNTRY, sum(sales) as total_sales from sales_order_data_orc group by COUNTRY order by total_sales limit 1 UNION all select COUNTRY, sum(sales) as total_sales from sales_order_data_orc group by COUNTRY order by total_sales desc limit 1 ;
+
 ![Q5](https://user-images.githubusercontent.com/113916872/191089277-02027588-0b49-4155-85a4-56290f104644.png)
 
 
-### f. Calculate quartelry sales for each city.
+### f. Calculate quartelry sales for each city
+
 -> select  city,CONCAT('Quarter ',qtr_id) as Quarter, sum(sales) as total_sales from  sales_order_data_orc group by city,qtr_id order by city, Quarter;
+
 ![Q6](https://user-images.githubusercontent.com/113916872/191089313-4de2f9d4-ce07-4a38-9121-607947f7fba2.png)
 
 
