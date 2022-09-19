@@ -73,7 +73,7 @@ stored as orc ;
 ![Q1](https://user-images.githubusercontent.com/113916872/191071559-77a3d267-3b8e-490a-89da-8955afd84dbb.png)
 
 
-### c. b. Find a product for which maximum orders were placed.
+### b. Find a product for which maximum orders were placed.
 -> select  PRODUCTLINE as maximum_ordered_product,
         sum(QUANTITYORDERED) as total_quantity  
        from sales_order_data_orc 
@@ -81,6 +81,31 @@ stored as orc ;
        order by total_quantity desc 
        limit 1;
        ![Q2](https://user-images.githubusercontent.com/113916872/191072388-51c04bc0-850c-406b-ac7c-a7b2e110c594.png)
+    
+### c. Calculate the total sales for each quarter.
+-> select QTR_ID, sum(sales) as total_sales from sales_order_data_orc group by QTR_ID;
+![Q3](https://user-images.githubusercontent.com/113916872/191079840-2e15f286-e8eb-4ed4-864c-73f2e193b0b6.png)
+
+### d. In which quarter sales was minimum.
+-> select QTR_ID, sum(sales) as total_sales from sales_order_data_orc group by QTR_ID order by total_sales limit 1;
+![Q4](https://user-images.githubusercontent.com/113916872/191079997-59b63476-133f-43b2-b22f-d941aae8a5f3.png)
+
+### e. In which country sales was maximum and in which country sales was minimum.
+-> select COUNTRY, sum(sales) as total_sales from sales_order_data_orc group by COUNTRY order by total_sales limit 1 UNION all select COUNTRY, sum(sales) as total_sales from sales_order_data_orc group by COUNTRY order by total_sales desc limit 1 ;
+![Q5](https://user-images.githubusercontent.com/113916872/191089277-02027588-0b49-4155-85a4-56290f104644.png)
+
+
+### f. Calculate quartelry sales for each city.
+-> select  city,CONCAT('Quarter ',qtr_id) as Quarter, sum(sales) as total_sales from  sales_order_data_orc group by city,qtr_id order by city, Quarter;
+![Q6](https://user-images.githubusercontent.com/113916872/191089313-4de2f9d4-ce07-4a38-9121-607947f7fba2.png)
+
+
+### g.  Find a month for each year in which maximum number of quantities were sold.
+
+
+
+
+
 
 
 
