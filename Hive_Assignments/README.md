@@ -38,3 +38,4 @@ load data inpath '/tmp/hive_data_class_2/sales_order_data.csv' into table sales_
 
 
 
+
