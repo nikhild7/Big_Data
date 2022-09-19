@@ -70,7 +70,7 @@ stored as orc ;
 
 ### a. Calculatye total sales per year.
 ->  select YEAR_ID, sum(SALES) as total_sales from sales_order_data_orc group by YEAR_ID;
-![Uploading image.png…]()
+
 
 
 
