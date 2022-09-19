@@ -76,10 +76,12 @@ stored as orc ;
 ### c. b. Find a product for which maximum orders were placed.
 -> select  PRODUCTLINE as maximum_ordered_product,
         sum(QUANTITYORDERED) as total_quantity  
-       from sales_order_orc 
+       from sales_order_data_orc 
        group by PRODUCTLINE  
        order by total_quantity desc 
        limit 1;
+       ![Q2](https://user-images.githubusercontent.com/113916872/191072388-51c04bc0-850c-406b-ac7c-a7b2e110c594.png)
+
 
 
 
