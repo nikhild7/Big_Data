@@ -119,6 +119,14 @@ stored as orc ;
 
 ### g.  Find a month for each year in which maximum number of quantities were sold.
 
+->  with my as(select year_id, month_id, sum(quantityordered) as total_quantity from sales_order_data_orc group by
+    > year_id, month_id), my2 as(select year_id, max(total_quantity) as max_sales from my group by year_id)
+    > select my2.year_id, month_id, max_sales from my inner join my2 on my.total_quantity = my2.max_sales;
+    
+    ![Q7](https://user-images.githubusercontent.com/113916872/192146482-76fca2eb-35bd-4d6e-ab99-c6dc6dd21d43.png)
+
+
+
 
 
 
