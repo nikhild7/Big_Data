@@ -47,7 +47,7 @@ AgentPerformance;
 
 ## 4. Find out agent average rating.
 => select Agent_name,avg(Avg_Rating) from AgentPerformance group by Agent_name;
-![image](https://user-images.githubusercontent.com/113916872/198083631-37190c30-24f6-439f-beed-a5a17c233c36.png)
+![image](https://user-images.githubusercontent.com/113916872/198083631-37190c30-24f6-439f-beed-a5a17c233c36.png).
 
 
 
