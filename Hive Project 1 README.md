@@ -49,6 +49,15 @@ AgentPerformance;
 => select Agent_name,avg(Avg_Rating) from AgentPerformance group by Agent_name;
 ![image](https://user-images.githubusercontent.com/113916872/198083631-37190c30-24f6-439f-beed-a5a17c233c36.png).
 
+## 5 Total working days for each agents
+=>
+
+## 6. Total query that each agent have taken
+=> Hive> select Agent_name,sum(total_chats) from AgentPerformance group by Agent_name;
+
+![image](https://user-images.githubusercontent.com/113916872/198106279-9df2c686-134a-4960-8ef3-ebdaebcb4fb1.png)
+
+
 
 
 
