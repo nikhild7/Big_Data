@@ -4,7 +4,7 @@ Download Dataset 1 - https://drive.google.com/file/d/1WrG-9qv6atP-W3P_-gYln1hHyF
 
 Download Dataset 2 - https://drive.google.com/file/d/1-JIPCZ34dyN6k9CqJa-Y8yxIGq6vTVXU/view
 
-##1.Create a schema based on the given dataset.
+## 1.Create a schema based on the given dataset.
 => A) 
 Create table AgentPerformance
 (
@@ -34,16 +34,22 @@ row format delimited
 fields terminated by ','
 tblproperties ("skip.header.line.count" = "1");
 
-##2.Dump the data inside the hdfs in the given schema location.
+## 2.Dump the data inside the hdfs in the given schema location.
 => A)load data local inpath ‘/home/cloudera/AgentLogingReport.csv’ into table AgentLogingReport;
 B) load data local inpath ‘/home/cloudera/AgentPerformance.csv’ into table 
 AgentPerformance;
 
-##3. List of all agents' names. 
+## 3. List of all agents' names. 
 
 => Hive>  select distinct Agent_Name from AgentPerformance;
 
 ![image](https://user-images.githubusercontent.com/113916872/198081684-dd97d7b2-d915-46d1-8535-409d354e39be.png)
+
+## 4. Find out agent average rating.
+=> select Agent_name,avg(Avg_Rating) from AgentPerformance group by Agent_name;
+![image](https://user-images.githubusercontent.com/113916872/198083631-37190c30-24f6-439f-beed-a5a17c233c36.png)
+
+
 
 
 
