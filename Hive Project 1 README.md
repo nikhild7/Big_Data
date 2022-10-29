@@ -78,10 +78,88 @@ AgentPerformance;
 => Hive> select Agent_name,Avg_Rating from AgentPerformance where Avg_Rating > 4.5;
 ![image](https://user-images.githubusercontent.com/113916872/198820070-1600994a-7072-4162-b0a6-2a2406f4b437.png)
 
+## 11. How many feedback agents have received more than 4.5 average
+
+=>  select agent_name ,total_feedback , sum( total_charts) as No_charts  from agentperformance where total_feedback <> 0 group by agent_name, Total_feedback  limit 10;
+![image](https://user-images.githubusercontent.com/113916872/198824457-ee725ea1-b4a8-4469-8c28-26242c2ef832.png)
+
+## 12. average weekly response time for each agent
+
+=>hive> select s.agent_name,avg(col1[0]*3600+col1[1]*60+col1[2])/3600  from(select agent_name,split(Avg_response_Time,':') as col1  from agentperformance)s group by s.agent_name;
+![image](https://user-images.githubusercontent.com/113916872/198824574-8151a32b-0dbf-4e10-a308-8124070712e6.png)
+
+
+
+## 13. average weekly resolution time for each agents 
+=> hive> select s.agent_name,avg(col1[0]*3600+col1[1]*60+col1[2])/3600  from(
+> select agent_name,split(Avg_Resolution_Time,':') as col1  from agentperformance)s group by s.agent_name;
+
+![image](https://user-images.githubusercontent.com/113916872/198824228-637036d2-cd65-42ec-a5ca-64dafe241e32.png)
+
+
 ## 14. Find the number of chat on which they have received a feedback 
 =>select agent_name ,total_feedback , sum( total_charts) as No_charts  from agentperformance where total_feedback <> 0 group by agent_name, Total_feedback  limit 10
 
 ![image](https://user-images.githubusercontent.com/113916872/198823556-43707bd4-f874-4a8a-839a-fe277b91074c.png)
+
+## 15. Total contribution hour for each and every agents weekly basis 
+=> select s.agent,sum(col1[0]*3600+col1[1]*60+col1[2])/3600 timeInHour,s.weekly  from(
+select agent,split(duration,':') as col1 ,weekofyear(Date) as weekly from AgentLogingReport )s group by s.agent,s.weekly limit 2;
+
+![image](https://user-images.githubusercontent.com/113916872/198824961-988210e2-9d49-40d5-9afe-a3b4ea335114.png)
+
+## 16. Perform inner join, left join and right join based on the agent column and after joining the table export that data into your local system.
+=> 
+# Inner join:
+Select agentperformance.* , agentloging.* from agentperformance JOIN agentlogging ON 
+(agentperformance.agent_name =agentloging.agent_name);
+# Exporting data into the local System
+insert overwrite local directory ‘/home/cloudera/innerjoin.csv’ Select agentperformance.* , 
+agentloging.* from agentperformance JOIN agentlogging ON (agentperformance.agent_name 
+=agentloging.agent_name);
+
+# left join:
+Select agentperformance.* , agentloging.* from agentperformance LEFT JOIN agentlogging ON 
+(agentperformance.agent_name =agentloging.agent_name);
+# Exporting data into the local System 
+insert overwrite local directory ‘/home/cloudera/leftjoin.csv’ Select agentperformance.* , 
+agentloging.* from agentperformance JOIN agentlogging ON (agentperformance.agent_name 
+=agentloging.agent_name);
+
+# Right join:
+Select agentperformance.* , agentloging.* from agentperformance RIGHT JOIN agentlogging ON 
+(agentperformance.agent_name =agentloging.agent_name);
+# Exporting data into the local System 
+insert overwrite local directory ‘/home/cloudera/ightjoin.csv’ Select agentperformance.* , 
+agentloging.* from agentperformance JOIN agentlogging ON (agentperformance.agent_name 
+=agentloging.agent_name);
+## 17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
+=> SET hive.exec.dynamic.partition=true
+set hive.exec.dynamic.partition.mode=nonstrict
+SET hive.exec.dynamic.partition.mode=nonstrict
+set hive.enforce.bucketing=true
+create table PartAgentPerformance(
+sr_no int,
+Date date,
+Total_Chats int,
+Avg_responsetime Timestamp,
+Avg_resolutiontime Timestamp,
+Avg_rating int,
+TotalFeedback int
+)
+partitioned by (agent_name string)
+clustered by (Date)
+sorted by (Date)
+into 3 buckets
+row format delimited terminated by fields ‘,’
+stored as textfile
+tblproperties ("skip.header.line.count" = "1");
+INSERT OVERWRITE TABLE PartAgentPerformance PARTITION(agentname) select * from 
+AgentPerformance
+
+
+
+
 
 
 
