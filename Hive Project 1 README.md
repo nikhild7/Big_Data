@@ -138,6 +138,7 @@ agentloging.* from agentperformance JOIN agentlogging ON (agentperformance.agent
 set hive.exec.dynamic.partition.mode=nonstrict
 SET hive.exec.dynamic.partition.mode=nonstrict
 set hive.enforce.bucketing=true
+
 create table PartAgentPerformance(
 sr_no int,
 Date date,
@@ -154,8 +155,8 @@ into 3 buckets
 row format delimited terminated by fields ‘,’
 stored as textfile
 tblproperties ("skip.header.line.count" = "1");
-INSERT OVERWRITE TABLE PartAgentPerformance PARTITION(agentname) select * from 
-AgentPerformance
+
+INSERT OVERWRITE TABLE PartAgentPerformance PARTITION(agentname) select * from AgentPerformance
 
 
 
