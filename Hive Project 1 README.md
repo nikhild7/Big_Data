@@ -78,6 +78,13 @@ AgentPerformance;
 => Hive> select Agent_name,Avg_Rating from AgentPerformance where Avg_Rating > 4.5;
 ![image](https://user-images.githubusercontent.com/113916872/198820070-1600994a-7072-4162-b0a6-2a2406f4b437.png)
 
+## 14. Find the number of chat on which they have received a feedback 
+=>select agent_name ,total_feedback , sum( total_charts) as No_charts  from agentperformance where total_feedback <> 0 group by agent_name, Total_feedback  limit 10
+
+![image](https://user-images.githubusercontent.com/113916872/198823556-43707bd4-f874-4a8a-839a-fe277b91074c.png)
+
+
+
 
 
 
