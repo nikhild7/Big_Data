@@ -135,8 +135,11 @@ agentloging.* from agentperformance JOIN agentlogging ON (agentperformance.agent
 =agentloging.agent_name);
 ## 17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
 => SET hive.exec.dynamic.partition=true
+
 set hive.exec.dynamic.partition.mode=nonstrict
+
 SET hive.exec.dynamic.partition.mode=nonstrict
+
 set hive.enforce.bucketing=true
 
 create table PartAgentPerformance(
@@ -154,7 +157,9 @@ sorted by (Date)
 into 3 buckets
 row format delimited terminated by fields ‘,’
 stored as textfile
+
 tblproperties ("skip.header.line.count" = "1");
+
 
 INSERT OVERWRITE TABLE PartAgentPerformance PARTITION(agentname) select * from AgentPerformance
 
