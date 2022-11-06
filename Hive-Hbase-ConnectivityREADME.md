@@ -37,8 +37,13 @@ tblproperties("skip.header.line.count" = "1");
 
 ![image](https://user-images.githubusercontent.com/113916872/200172601-6905d9a3-62a8-4019-a6f2-a777125b82b9.png)
 
+## Hbase Storage handler property :
+=> Storage Handlers are a combination of InputFormat , OutputFormat , SerDe , and specific code that Hive uses to treat an external entity as a standard Hive table.
 
-## Create An External table using storage handler property:
+  'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+
+
+## Create An External table using Hbase storage handler property with columns mapping :
 
 =>CREATE EXTERNAL TABLE IF not exists sales_order_csv_main
 (
@@ -84,7 +89,7 @@ TBLPROPERTIES("hbase.table.name"="Sales_order_hbase_csv")
 
 ![image](https://user-images.githubusercontent.com/113916872/200172910-34d3d76d-2138-4786-97fd-afc022e92267.png)
 
-## Fire Scan command in Hbase to see the data is reflected in Hbase:
+## From the HBase shell, verify that the data got loaded:
 
 => Scan 'Sales_order_hbase_csv' 
 
