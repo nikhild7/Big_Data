@@ -82,9 +82,13 @@ TBLPROPERTIES("hbase.table.name"="Sales_order_hbase_csv")
 
 ![image](https://user-images.githubusercontent.com/113916872/200172913-b8baf7ef-82bc-4a6f-b103-5b12f38a7e58.png)
 
-## load data into Hive main table from Hive stage table:
+## Load the data into a stage table :
 
-=>insert into table sales_order_csv_main * from sales_order_csv_new;
+=> Load data local inpath ‘/home/cloudera/sales_order_data_new.csv’ into table sales_order_csv_new;
+
+## Load data into Hive main table from Hive stage table:
+
+=>insert into table sales_order_csv_main select * from sales_order_csv_new;
 
 ![image](https://user-images.githubusercontent.com/113916872/200172719-2aaf2926-058b-4128-8b13-d484a9be7500.png)
 
