@@ -1,4 +1,4 @@
-# Hive-Hbase Connectivity 
+# Hive-Hbase Connectivity with sample database 
 
 ## Dataset used for given task : https://drive.google.com/file/d/1MTiqMHh7V7Smu7IRYr4pBtHcVZZNLixy/view?usp=sharing
 
@@ -38,12 +38,13 @@ tblproperties("skip.header.line.count" = "1");
 ![image](https://user-images.githubusercontent.com/113916872/200172601-6905d9a3-62a8-4019-a6f2-a777125b82b9.png)
 
 ## Hbase Storage handler property :
-=> Storage Handlers are a combination of InputFormat , OutputFormat , SerDe , and specific code that Hive uses to treat an external entity as a standard Hive table.
+=> The storage handler is built as an independent module, hive-hbase-handler-x.y.z.jar, which must be available on the Hive client auxpath, along with HBase, Guava and ZooKeeper jars. It also requires the correct configuration property to be set in order to connect to the right HBase master. 
+Storage Handlers are a combination of InputFormat , OutputFormat , SerDe , and specific code that Hive uses to treat an external entity as a standard Hive table.
 
   'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
 
 
-## Create An External table using Hbase storage handler property with columns mapping :
+## If you want to give Hive access to an existing HBase table, use CREATE EXTERNAL TABLE using Hbase storage handler property with columns mapping :
 
 =>CREATE EXTERNAL TABLE IF not exists sales_order_csv_main
 (
